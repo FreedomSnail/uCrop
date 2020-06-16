@@ -2,6 +2,7 @@ package com.yalantis.ucrop.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -75,10 +76,12 @@ public class GestureCropImageView extends CropImageView {
         if (event.getPointerCount() > 1) {
             mMidPntX = (event.getX(0) + event.getX(1)) / 2;
             mMidPntY = (event.getY(0) + event.getY(1)) / 2;
+            Log.d("GestureCropImageView","------");
         }
 
         mGestureDetector.onTouchEvent(event);
-
+//        Log.d("GestureCropImageView"," "+mCropRect.left+" "+mCropRect.right+" "+mCropRect.top+" "+mCropRect.bottom);
+//        Log.d("GestureCropImageView"," "+mMidPntX+" "+mMidPntY);
         if (mIsScaleEnabled) {
             mScaleDetector.onTouchEvent(event);
         }

@@ -8,6 +8,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.yalantis.ucrop.R;
 import com.yalantis.ucrop.callback.BitmapCropCallback;
@@ -309,8 +310,10 @@ public class CropImageView extends TransformImageView {
                         tempCropRect.height() / currentImageSides[1]);
                 deltaScale = deltaScale * currentScale - currentScale;
             }
-
+//            Log.d("GestureCropImageView"," "+mCropRect.left+" "+mCropRect.right+" "+mCropRect.top+" "+mCropRect.bottom);
+//            Log.d("GestureCropImageView","w="+(mCropRect.right-mCropRect.left)+" h="+(mCropRect.bottom-mCropRect.top));
             if (animate) {
+                //Log.d("GestureCropImageView","mWrapCropBoundsRunnable"+currentX+" "+currentY+" "+deltaX+" "+deltaY);
                 post(mWrapCropBoundsRunnable = new WrapCropBoundsRunnable(
                         CropImageView.this, mImageToWrapCropBoundsAnimDuration, currentX, currentY, deltaX, deltaY,
                         currentScale, deltaScale, willImageWrapCropBoundsAfterTranslate));
@@ -385,13 +388,22 @@ public class CropImageView extends TransformImageView {
             int width = (int) (mThisHeight * mTargetAspectRatio);
             int halfDiff = (mThisWidth - width) / 2;
             mCropRect.set(halfDiff, 0, width + halfDiff, mThisHeight);
+            Log.d("GestureCropImageView","height > mThisHeight"+mCropRect.left+" "+mCropRect.right+" "+mCropRect.top+" "+mCropRect.bottom);
+
         } else {
             int halfDiff = (mThisHeight - height) / 2;
             mCropRect.set(0, halfDiff, mThisWidth, height + halfDiff);
+            Log.d("GestureCropImageView","height < mThisHeight"+mCropRect.left+" "+mCropRect.right+" "+mCropRect.top+" "+mCropRect.bottom);
+
+
         }
+
 
         calculateImageScaleBounds(drawableWidth, drawableHeight);
         setupInitialImagePosition(drawableWidth, drawableHeight);
+        Log.d("GestureCropImageView","drawableWidth="+drawableWidth+"drawableHeight="+drawableHeight);
+
+//        setupInitialImagePosition(100, 100);
 
         if (mCropBoundsChangeListener != null) {
             mCropBoundsChangeListener.onCropAspectRatioChanged(mTargetAspectRatio);

@@ -9,6 +9,7 @@ import android.graphics.RectF;
 import android.graphics.Region;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -64,7 +65,7 @@ public class OverlayView extends View {
     @FreestyleMode
     private int mFreestyleCropMode = DEFAULT_FREESTYLE_CROP_MODE;
     private float mPreviousTouchX = -1, mPreviousTouchY = -1;
-    private int mCurrentTouchCornerIndex = -1;
+    private int mCurrentTouchCornerIndex = -1;  // 0代表左上角，1右上，2左下，3右下，4框里，-1框外
     private int mTouchPointThreshold;
     private int mCropRectMinSize;
     private int mCropRectCornerTouchAreaLineLength;
@@ -241,15 +242,23 @@ public class OverlayView extends View {
      */
     public void setupCropBounds() {
         int height = (int) (mThisWidth / mTargetAspectRatio);
+        int length = 400;   //设置固定的正方形框的边长
         if (height > mThisHeight) {
             int width = (int) (mThisHeight * mTargetAspectRatio);
             int halfDiff = (mThisWidth - width) / 2;
+            //以下两行为原作者写的
+            //mCropViewRect.set(getPaddingLeft() + halfDiff, getPaddingTop(),
+            //        getPaddingLeft() + width + halfDiff, getPaddingTop() + mThisHeight);
             mCropViewRect.set(getPaddingLeft() + halfDiff, getPaddingTop(),
-                    getPaddingLeft() + width + halfDiff, getPaddingTop() + mThisHeight);
+                    getPaddingLeft() + length + halfDiff, getPaddingTop() + length);
         } else {
             int halfDiff = (mThisHeight - height) / 2;
+            //以下两行为原作者写的
+            //mCropViewRect.set(getPaddingLeft(), getPaddingTop() + halfDiff,
+            //        getPaddingLeft() + mThisWidth, getPaddingTop() + height + halfDiff);
             mCropViewRect.set(getPaddingLeft(), getPaddingTop() + halfDiff,
-                    getPaddingLeft() + mThisWidth, getPaddingTop() + height + halfDiff);
+                    getPaddingLeft() + length, getPaddingTop() + length + halfDiff);
+
         }
 
         if (mCallback != null) {
@@ -312,8 +321,12 @@ public class OverlayView extends View {
         float x = event.getX();
         float y = event.getY();
 
+        
+
+
         if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_DOWN) {
             mCurrentTouchCornerIndex = getCurrentTouchIndex(x, y);
+            Log.d("GestureCropImageView","mCurrentTouchCornerIndex="+mCurrentTouchCornerIndex);
             boolean shouldHandle = mCurrentTouchCornerIndex != -1;
             if (!shouldHandle) {
                 mPreviousTouchX = -1;
@@ -322,6 +335,7 @@ public class OverlayView extends View {
                 mPreviousTouchX = x;
                 mPreviousTouchY = y;
             }
+
             return shouldHandle;
         }
 
@@ -367,16 +381,16 @@ public class OverlayView extends View {
         switch (mCurrentTouchCornerIndex) {
             // resize rectangle
             case 0:
-                mTempRect.set(touchX, touchY, mCropViewRect.right, mCropViewRect.bottom);
+                //mTempRect.set(touchX, touchY, mCropViewRect.right, mCropViewRect.bottom);
                 break;
             case 1:
-                mTempRect.set(mCropViewRect.left, touchY, touchX, mCropViewRect.bottom);
+                //mTempRect.set(mCropViewRect.left, touchY, touchX, mCropViewRect.bottom);
                 break;
             case 2:
-                mTempRect.set(mCropViewRect.left, mCropViewRect.top, touchX, touchY);
+                //mTempRect.set(mCropViewRect.left, mCropViewRect.top, touchX, touchY);
                 break;
             case 3:
-                mTempRect.set(touchX, mCropViewRect.top, mCropViewRect.right, touchY);
+                //mTempRect.set(touchX, mCropViewRect.top, mCropViewRect.right, touchY);
                 break;
             // move rectangle
             case 4:
@@ -387,6 +401,8 @@ public class OverlayView extends View {
                     updateGridPoints();
                     postInvalidate();
                 }
+//                Log.d("GestureCropImageView"," "+mTempRect.left+" "+mTempRect.right+" "+mTempRect.top+" "+mTempRect.bottom);
+//                Log.d("GestureCropImageView","w="+mTempRect.width()+"h="+mTempRect.height());
                 return;
         }
 
