@@ -388,12 +388,12 @@ public class CropImageView extends TransformImageView {
             int width = (int) (mThisHeight * mTargetAspectRatio);
             int halfDiff = (mThisWidth - width) / 2;
             mCropRect.set(halfDiff, 0, width + halfDiff, mThisHeight);
-            Log.d("GestureCropImageView","height > mThisHeight"+mCropRect.left+" "+mCropRect.right+" "+mCropRect.top+" "+mCropRect.bottom);
+            //Log.d("GestureCropImageView","height > mThisHeight"+mCropRect.left+" "+mCropRect.right+" "+mCropRect.top+" "+mCropRect.bottom);
 
         } else {
             int halfDiff = (mThisHeight - height) / 2;
             mCropRect.set(0, halfDiff, mThisWidth, height + halfDiff);
-            Log.d("GestureCropImageView","height < mThisHeight"+mCropRect.left+" "+mCropRect.right+" "+mCropRect.top+" "+mCropRect.bottom);
+            //Log.d("GestureCropImageView","height < mThisHeight"+mCropRect.left+" "+mCropRect.right+" "+mCropRect.top+" "+mCropRect.bottom);
 
 
         }
