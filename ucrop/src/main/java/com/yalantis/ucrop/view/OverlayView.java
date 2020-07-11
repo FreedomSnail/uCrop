@@ -244,7 +244,7 @@ public class OverlayView extends View {
      */
     public void setupCropBounds() {
         int height = (int) (mThisWidth / mTargetAspectRatio);
-        int length = 600;   //设置固定的正方形框的边长
+        int length = 960;   //设置固定的正方形框的边长
         if (height > mThisHeight) {
             int width = (int) (mThisHeight * mTargetAspectRatio);
             int halfDiff = (mThisWidth - width) / 2;
