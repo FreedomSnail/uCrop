@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.yalantis.ucrop.R;
+import com.yalantis.ucrop.UCropActivity;
 import com.yalantis.ucrop.callback.OverlayViewChangeListener;
 import com.yalantis.ucrop.util.RectUtils;
 
@@ -230,7 +231,7 @@ public class OverlayView extends View {
         mTargetAspectRatio = targetAspectRatio;
         if (mThisWidth > 0) {
             Log.d("GestureCropImageView","运行1");
-            setupCropBounds();
+            setupCropBounds(UCropActivity.CropWindowWidth,UCropActivity.CropWindowHeight);
             postInvalidate();
         } else {
             Log.d("GestureCropImageView","运行2");
@@ -242,24 +243,26 @@ public class OverlayView extends View {
      * This method setups crop bounds rectangles for given aspect ratio and view size.
      * {@link #mCropViewRect} is used to draw crop bounds - uses padding.
      */
-    public void setupCropBounds() {
+    public void setupCropBounds(int CropWidth,int CropHeight) {
         int height = (int) (mThisWidth / mTargetAspectRatio);
-        int length = 960;   //设置固定的正方形框的边长
+        //int length = 960;   //设置固定的正方形框的边长
         if (height > mThisHeight) {
             int width = (int) (mThisHeight * mTargetAspectRatio);
             int halfDiff = (mThisWidth - width) / 2;
             //以下两行为原作者写的
             //mCropViewRect.set(getPaddingLeft() + halfDiff, getPaddingTop(),
             //        getPaddingLeft() + width + halfDiff, getPaddingTop() + mThisHeight);
+            Log.d("GestureCropImageView","从这里设置：height > mThisHeight");
             mCropViewRect.set(getPaddingLeft() + halfDiff, getPaddingTop(),
-                    getPaddingLeft() + length + halfDiff, getPaddingTop() + length);
+                    getPaddingLeft() + CropWidth + halfDiff, getPaddingTop() + CropHeight);
         } else {
             int halfDiff = (mThisHeight - height) / 2;
             //以下两行为原作者写的
             //mCropViewRect.set(getPaddingLeft(), getPaddingTop() + halfDiff,
             //        getPaddingLeft() + mThisWidth, getPaddingTop() + height + halfDiff);
+            Log.d("GestureCropImageView","从这里设置：height < mThisHeight");
             mCropViewRect.set(getPaddingLeft(), getPaddingTop() + halfDiff,
-                    getPaddingLeft() + length, getPaddingTop() + length + halfDiff);
+                    getPaddingLeft() + CropWidth, getPaddingTop() + CropHeight + halfDiff);
 
         }
 

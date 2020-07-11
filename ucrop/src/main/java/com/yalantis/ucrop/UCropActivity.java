@@ -56,6 +56,7 @@ import androidx.transition.AutoTransition;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
+
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
  */
@@ -70,6 +71,9 @@ public class UCropActivity extends AppCompatActivity {
     public static final int SCALE = 1;
     public static final int ROTATE = 2;
     public static final int ALL = 3;
+
+    public static  int CropWindowWidth;
+    public static  int CropWindowHeight;
 
     @IntDef({NONE, SCALE, ROTATE, ALL})
     @Retention(RetentionPolicy.SOURCE)
@@ -275,8 +279,11 @@ public class UCropActivity extends AppCompatActivity {
         }
 
         // Result bitmap max size options
-        int maxSizeX = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_X, 0);
-        int maxSizeY = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_Y, 0);
+        int maxSizeX  = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_X, 0);
+        int maxSizeY  = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_Y, 0);
+        CropWindowWidth = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_X, 200);
+        CropWindowHeight = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_Y, 200);
+        Log.d("GestureCropImageView","传递maxSizeX="+maxSizeX+" maxSizeY="+maxSizeY);
 
         if (maxSizeX > 0 && maxSizeY > 0) {
             mGestureCropImageView.setMaxResultImageSizeX(maxSizeX);
