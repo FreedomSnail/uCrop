@@ -229,9 +229,11 @@ public class OverlayView extends View {
     public void setTargetAspectRatio(final float targetAspectRatio) {
         mTargetAspectRatio = targetAspectRatio;
         if (mThisWidth > 0) {
+            Log.d("GestureCropImageView","运行1");
             setupCropBounds();
             postInvalidate();
         } else {
+            Log.d("GestureCropImageView","运行2");
             mShouldSetupCropBounds = true;
         }
     }
@@ -413,8 +415,12 @@ public class OverlayView extends View {
                 changeHeight ? mTempRect.top : mCropViewRect.top,
                 changeWidth ? mTempRect.right : mCropViewRect.right,
                 changeHeight ? mTempRect.bottom : mCropViewRect.bottom);
+        Log.d("GestureCropImageView","运行到这里");
+        Log.d("GestureCropImageView"," "+mTempRect.left+" "+mTempRect.right+" "+mTempRect.top+" "+mTempRect.bottom);
 
         if (changeHeight || changeWidth) {
+            Log.d("GestureCropImageView","真真真");
+            Log.d("GestureCropImageView"," "+mCropViewRect.left+" "+mCropViewRect.right+" "+mCropViewRect.top+" "+mCropViewRect.bottom);
             updateGridPoints();
             postInvalidate();
         }
