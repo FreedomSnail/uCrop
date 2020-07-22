@@ -386,16 +386,16 @@ public class OverlayView extends View {
         switch (mCurrentTouchCornerIndex) {
             // resize rectangle
             case 0:
-                //mTempRect.set(touchX, touchY, mCropViewRect.right, mCropViewRect.bottom);
+                mTempRect.set(touchX, touchY, mCropViewRect.right, mCropViewRect.bottom);
                 break;
             case 1:
-                //mTempRect.set(mCropViewRect.left, touchY, touchX, mCropViewRect.bottom);
+                mTempRect.set(mCropViewRect.left, touchY, touchX, mCropViewRect.bottom);
                 break;
             case 2:
-                //mTempRect.set(mCropViewRect.left, mCropViewRect.top, touchX, touchY);
+                mTempRect.set(mCropViewRect.left, mCropViewRect.top, touchX, touchY);
                 break;
             case 3:
-                //mTempRect.set(touchX, mCropViewRect.top, mCropViewRect.right, touchY);
+                mTempRect.set(touchX, mCropViewRect.top, mCropViewRect.right, touchY);
                 break;
             // move rectangle
             case 4:

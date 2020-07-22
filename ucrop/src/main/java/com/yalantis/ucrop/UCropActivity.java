@@ -281,8 +281,8 @@ public class UCropActivity extends AppCompatActivity {
         // Result bitmap max size options
         int maxSizeX  = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_X, 0);
         int maxSizeY  = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_Y, 0);
-        CropWindowWidth = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_X, 200);
-        CropWindowHeight = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_Y, 200);
+        CropWindowWidth = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_X, 600);
+        CropWindowHeight = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_Y, 800);
         Log.d("GestureCropImageView","传递maxSizeX="+maxSizeX+" maxSizeY="+maxSizeY);
 
         if (maxSizeX > 0 && maxSizeY > 0) {

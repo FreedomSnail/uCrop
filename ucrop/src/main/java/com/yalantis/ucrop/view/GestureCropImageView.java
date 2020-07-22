@@ -83,11 +83,11 @@ public class GestureCropImageView extends CropImageView {
 //        Log.d("GestureCropImageView"," "+mCropRect.left+" "+mCropRect.right+" "+mCropRect.top+" "+mCropRect.bottom);
 //        Log.d("GestureCropImageView"," "+mMidPntX+" "+mMidPntY);
         if (mIsScaleEnabled) {
-            mScaleDetector.onTouchEvent(event);
+            //mScaleDetector.onTouchEvent(event);
         }
 
         if (mIsRotateEnabled) {
-            mRotateDetector.onTouchEvent(event);
+            //mRotateDetector.onTouchEvent(event);
         }
 
         if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
